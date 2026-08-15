@@ -1,0 +1,233 @@
+/* Reset y Configuración Móvil */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    -webkit-tap-highlight-color: transparent; /* Elimina el cuadro azul nativo al pulsar en Android */
+    user-select: none; /* Evita que el usuario seleccione texto o elementos del juego */
+}
+
+body {
+    font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+    background-color: #0a0b10;
+    color: #e0e6ed;
+    overflow: hidden; /* Evita scrolls accidentales en el contenedor híbrido */
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Contenedor Principal */
+.game-container {
+    width: 100%;
+    max-width: 450px;
+    height: 100vh;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+}
+
+/* Encabezado y Estadísticas */
+.game-header {
+    width: 100%;
+    text-align: center;
+    margin-top: env(safe-area-inset-top, 10px); /* Previene problemas con el notch de Android */
+}
+
+.game-header h1 {
+    font-size: 1.8rem;
+    letter-spacing: 3px;
+    color: #00f0ff;
+    text-shadow: 0 0 10px rgba(0, 240, 255, 0.5);
+    margin-bottom: 15px;
+}
+
+.stats-container {
+    display: flex;
+    justify-content: space-around;
+    width: 100%;
+    gap: 15px;
+}
+
+.stat-box {
+    background: rgba(16, 20, 35, 0.8);
+    border: 1px solid #32394e;
+    border-radius: 8px;
+    padding: 10px 20px;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.5);
+}
+
+.stat-label {
+    font-size: 0.75rem;
+    color: #8a99ad;
+    letter-spacing: 1px;
+    margin-bottom: 4px;
+}
+
+.stat-value {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #ff0055;
+    text-shadow: 0 0 8px rgba(255, 0, 85, 0.4);
+}
+
+#ships-count {
+    color: #ffea00;
+    text-shadow: 0 0 8px rgba(255, 234, 0, 0.4);
+}
+
+/* El Tablero Grid */
+.game-board-wrapper {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-grow: 1;
+}
+
+.board {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    grid-template-rows: repeat(5, 1fr);
+    gap: 8px;
+    width: 88vw;
+    height: 88vw;
+    max-width: 360px;
+    max-height: 360px;
+    background: rgba(16, 20, 35, 0.5);
+    padding: 8px;
+    border-radius: 12px;
+    border: 2px solid #00f0ff;
+    box-shadow: 0 0 15px rgba(0, 240, 255, 0.2);
+}
+
+/* Celdas del Tablero */
+.cell {
+    background: #161b2c;
+    border: 1px solid #252e48;
+    border-radius: 6px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: #fff;
+    cursor: pointer;
+    touch-action: manipulation;
+    transition: background 0.2s, transform 0.1s, border-color 0.2s;
+}
+
+/* Feedback táctil activo instantáneo */
+.cell:active {
+    transform: scale(0.92);
+}
+
+/* Estados de la celda */
+.cell.hit {
+    background: #ff0055;
+    border-color: #ff5588;
+    box-shadow: inset 0 0 12px rgba(0, 0, 0, 0.5);
+    animation: pulseHit 0.3s ease-out;
+}
+
+.cell.miss {
+    background: #252e48;
+    border-color: #3b486d;
+    color: #8a99ad;
+}
+
+/* Mensajes inferiores */
+.game-message {
+    font-size: 0.95rem;
+    color: #00f0ff;
+    text-align: center;
+    margin-bottom: env(safe-area-inset-bottom, 15px);
+    letter-spacing: 1px;
+    min-height: 20px;
+}
+
+/* Pantalla Modal (Fin de juego) */
+.modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(5, 6, 10, 0.9);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 10;
+    opacity: 1;
+    transition: opacity 0.3s ease;
+}
+
+.modal.hidden {
+    display: none;
+    opacity: 0;
+    pointer-events: none;
+}
+
+.modal-content {
+    background: #111422;
+    border: 2px solid #ff0055;
+    border-radius: 16px;
+    padding: 30px;
+    width: 85%;
+    max-width: 340px;
+    text-align: center;
+    box-shadow: 0 0 25px rgba(255, 0, 85, 0.3);
+    animation: scaleUp 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.modal-content h2 {
+    font-size: 2rem;
+    margin-bottom: 10px;
+    letter-spacing: 2px;
+}
+
+.modal-content p {
+    color: #8a99ad;
+    margin-bottom: 25px;
+    font-size: 1rem;
+    line-height: 1.4;
+}
+
+.restart-btn {
+    background: #00f0ff;
+    color: #0a0b10;
+    border: none;
+    padding: 12px 24px;
+    font-size: 0.95rem;
+    font-weight: bold;
+    border-radius: 8px;
+    width: 100%;
+    letter-spacing: 1px;
+    box-shadow: 0 4px 10px rgba(0, 240, 255, 0.3);
+}
+
+.restart-btn:active {
+    transform: scale(0.97);
+    background: #00c2cc;
+}
+
+/* Animaciones */
+@keyframes pulseHit {
+    0% { transform: scale(1); background: #fff; }
+    50% { transform: scale(1.1); }
+    100% { transform: scale(1); }
+}
+
+@keyframes scaleUp {
+    from { transform: scale(0.8); opacity: 0; }
+    to { transform: scale(1); opacity: 1; }
+}
