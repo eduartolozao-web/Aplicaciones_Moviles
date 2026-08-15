@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <title>Naval Combat: Cyberpunk</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <div class="game-container">
+        <header class="game-header">
+            <h1>NAVAL COMBAT</h1>
+            <div class="stats-container">
+                <div class="stat-box">
+                    <span class="stat-label">TURNOS</span>
+                    <span id="moves-count" class="stat-value">12</span>
+                </div>
+                <div class="stat-box">
+                    <span class="stat-label">BARCOS</span>
+                    <span id="ships-count" class="stat-value">3</span>
+                </div>
+            </div>
+        </header>
+
+        <main class="game-board-wrapper">
+            <div id="board" class="board"></div>
+        </main>
+        
+        <p id="game-message" class="game-message">¡Detecta la flota enemiga!</p>
+    </div>
+
+    <!-- Modal de Fin de Juego -->
+    <div id="game-modal" class="modal hidden">
+        <div class="modal-content">
+            <h2 id="modal-title">FIN DE JUEGO</h2>
+            <p id="modal-message">Mensaje del resultado</p>
+            <button id="restart-btn" class="restart-btn">INICIAR NUEVA OPERACIÓN</button>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
